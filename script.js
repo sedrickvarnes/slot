@@ -12,27 +12,37 @@ const slots = [
 const result = document.getElementById('result');
 const spinButton = document.getElementById('spinButton');
 const balanceElement = document.getElementById('balance');
-const ferdig_knapp = document.getElementById('ferdig_knapp')
 
-const symbols = ['🍒', '🍋', '🍉', '🍇', '🍊'];
-const spinCost = 0.2;
-const winReward = 1;
+const symbols = [
+    'pictures/brage_bilde.jpg',
+    'pictures/emil_bilde.jpg',
+    'pictures/erik_bilde.PNG',
+    'pictures/gustav_bilde.PNG',
+    'pictures/joey_bilde.PNG',
+    'pictures/lars_bilde.PNG',
+    'pictures/sedric_bilde.jpg',
+    'pictures/sindre_bilde.jpg',
+    'pictures/svavar_bilde.jpg',
+
+];
+const spinCost = 0.3;
+const winReward = 2;
 let balance = 0;
 
 spinButton.addEventListener('click', () => {
-    
+
     balance -= spinCost;
     updateBalance();
 
     const results = [];
     slots.forEach(slot => {
-        slot.classList.remove('winning');
+        slot.parentNode.classList.remove('winning');
         const randomSymbol = getRandomSymbol();
-        slot.textContent = randomSymbol;
+        slot.src = randomSymbol;
         results.push(randomSymbol);
     });
 
-    if (checkWin(results)) {
+    if (checkWin(results) > 0) {
         balance += winReward;
         result.textContent = 'You Win!';
         result.style.color = 'green';
@@ -44,8 +54,15 @@ spinButton.addEventListener('click', () => {
     updateBalance();
 });
 
-ferdig_knapp.addEventListener('click', () => {
+doneButton.addEventListener('click', () => {
+    finished_balance = Math.round(balance)
+    if (finished_balance < 0) {
+        alert("Du må drikke" + finished_balance + " slurker")
+    } else {
+        alert("Du kan gi vekk" + finished_balance + "slurker")
+    }
 });
+
 
 function getRandomSymbol() {
     return symbols[Math.floor(Math.random() * symbols.length)];
@@ -53,24 +70,24 @@ function getRandomSymbol() {
 
 function checkWin(results) {
     const winningLines = [
-        [0, 1, 2], // Row 1
-        [3, 4, 5], // Row 2
-        [6, 7, 8], // Row 3
-        [0, 3, 6], // Column 1
-        [1, 4, 7], // Column 2
-        [2, 5, 8], // Column 3
-        [0, 4, 8], // Diagonal 1
-        [2, 4, 6]  // Diagonal 2
+        [0, 1, 2, 10], // Row 1
+        [3, 4, 5, 10], // Row 2
+        [6, 7, 8, 10], // Row 3
+        [0, 3, 6, 9], // Column 1
+        [1, 4, 7, 9], // Column 2
+        [2, 5, 8, 9], // Column 3
+        [0, 4, 8, 8], // Diagonal 1
+        [2, 4, 6, 8]  // Diagonal 2
     ];
 
     for (const line of winningLines) {
-        const [a, b, c] = line;
+        const [a, b, c, d] = line;
         if (results[a] === results[b] && results[b] === results[c]) {
-            line.forEach(index => slots[index].classList.add('winning'));
-            return true;
+            line.forEach(index => slots[index].parentNode.classList.add('winning'));
+            return d;
         }
     }
-    return false;
+    return 0;
 }
 
 function updateBalance() {
