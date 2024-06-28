@@ -25,8 +25,8 @@ const symbols = [
     'pictures/svavar_bilde.jpg',
 
 ];
-const spinCost = 0.3;
-const winReward = 2;
+const spinCost = 0.1;
+const winReward = 3;
 let balance = 0;
 
 spinButton.addEventListener('click', () => {
@@ -43,6 +43,7 @@ spinButton.addEventListener('click', () => {
     });
 
     if (checkWin(results) > 0) {
+        
         balance += winReward;
         result.textContent = 'You Win!';
         result.style.color = 'green';
@@ -55,11 +56,13 @@ spinButton.addEventListener('click', () => {
 });
 
 doneButton.addEventListener('click', () => {
-    finished_balance = Math.round(balance)
+    finished_balance = Math.ceil(balance)
+    max = -Math.floor(balance)
+    min = Math.ceil(balance)
     if (finished_balance < 0) {
-        alert("Du må drikke" + finished_balance + " slurker")
+        alert("Du kan gi vekk " + min + " slurker")
     } else {
-        alert("Du kan gi vekk" + finished_balance + "slurker")
+        alert("Du må drikkke " + max + " slurker")
     }
 });
 
