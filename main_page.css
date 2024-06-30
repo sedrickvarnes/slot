@@ -1,0 +1,35 @@
+
+form {
+    display: flex;
+    justify-content: space-between;
+    top:50%;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding:15px;
+    flex-direction: column;
+    max-width: 400px;
+    
+    margin: auto;
+    margin-top: 2%;
+  }
+
+  input {
+    font-size: medium;
+    height: 50px;
+  }
+  .button1 {
+    background-color: rgb(224, 95, 117);
+    color: white;
+  }
+
+  .button2 {
+    background-color: rgb(19, 0, 194);
+    color: white;
+  }
+  
+  .button3 {
+    background-color: rgb(135, 255, 23);
+    color: white;
+  }
+ 
