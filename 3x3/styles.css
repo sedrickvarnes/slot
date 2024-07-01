@@ -9,45 +9,73 @@ body {
 }
 
 .container {
-    text-align: center;
-}
-
-.balance {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .slot-machine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.slots {
     display: grid;
     grid-template-columns: repeat(3, 200px);
-    grid-gap: 10px;
+    grid-template-rows: repeat(3, 200px);
+    gap: 10px;
     justify-content: center;
-    margin-bottom: 20px;
+    align-items: center;
 }
 
 .slot {
     width: 200px;
     height: 200px;
-    border: 2px solid #000;
+    border: 2px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    overflow: hidden;
+    position: relative;
 }
 
 .slot img {
-    width: 170px;
-    height: 170px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the slot while maintaining aspect ratio */
+    transition: transform 1s cubic-bezier(0.5, 0, 0.5, 1); /* Longer animation duration and cubic-bezier for smooth rolling effect */
+    transform: translateY(100%); /* Start with initial translateY */
 }
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px; /* Adjust as necessary */
+    margin-top: 20px;
+}
+
+.balance {
+    font-size: 1.5rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
 button {
     padding: 10px 20px;
     font-size: 1rem;
     color: white;
-    border: none; 
-    border-radius: 5px; 
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
     margin: 5px;
 }
+
 #spinButton {
     background-color: rgb(216, 216, 8);
 }
@@ -56,12 +84,9 @@ button {
     background-color: rgb(112, 10, 10);
 }
 
-#result {
+.result {
     margin-top: 20px;
+    margin-bottom: 40px;
     font-size: 1.5rem;
     font-weight: bold;
-}
-
-.winning {
-    border-color: rgb(0, 255, 0);
 }

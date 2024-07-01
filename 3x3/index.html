@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3x3 Slot Game</title>
+    <title>Slot Machine</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="balance">
-            Du må drikke eller gi vekk: <span id="balance">0</span>
-        </div>
         <div class="slot-machine">
-            <div class="slot"><img id="slot1" src="../pictures/brage_bilde.jpg" alt="slot image"></div>
-            <div class="slot"><img id="slot2" src="../pictures/emil_bilde.jpg" alt="slot image"></div>
-            <div class="slot"><img id="slot3" src="../pictures/erik_bilde.PNG" alt="slot image"></div>
-            <div class="slot"><img id="slot4" src="../pictures/sindre_bilde.jpg" alt="slot image"></div>
-            <div class="slot"><img id="slot5" src="../pictures/svavar_bilde.jpg" alt="slot image"></div>
-            <div class="slot"><img id="slot6" src="../pictures/gustav_bilde.PNG" alt="slot image"></div>
-            <div class="slot"><img id="slot7" src="../pictures/joey_bilde.PNG" alt="slot image"></div>
-            <div class="slot"><img id="slot8" src="../pictures/sedric_bilde.jpg" alt="slot image"></div>
-            <div class="slot"><img id="slot9" src="../pictures/lars_bilde.PNG" alt ="slot image"></div>
+            <h1 class="result" id="result">Good Luck</h1>
+            <div class="slots">
+                <div class="slot" id="slot1"><img src=""></div>
+                <div class="slot" id="slot2"><img src=""></div>
+                <div class="slot" id="slot3"><img src=""></div>
+                <div class="slot" id="slot4"><img src=""></div>
+                <div class="slot" id="slot5"><img src=""></div>
+                <div class="slot" id="slot6"><img src=""></div>
+                <div class="slot" id="slot7"><img src=""></div>
+                <div class="slot" id="slot8"><img src=""></div>
+                <div class="slot" id="slot9"><img src=""></div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button id="spinButton">Spin</button>
+                    <button id="doneButton">Done</button>
+                </div>
+                <div class="balance" id="balance">Balance: 0</div>
+            </div>
         </div>
-        <button id="spinButton">Spin</button>
-        <div id="result"></div>
-        <button id="doneButton">FERDIG</button>
-
     </div>
     <script src="script.js"></script>
 </body>
