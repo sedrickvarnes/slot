@@ -105,7 +105,7 @@ function getRandomSymbol() {
 
 doneButton.addEventListener('click', () => {
     // Add your logic here
-    const finished_balance = Math.ceil(balance / 500);
+    const finished_balance = Math.ceil(balance / 1000);
 
     const max = Math.floor(finished_balance);
     const min = Math.max(Math.ceil(finished_balance),1);
