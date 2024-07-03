@@ -1,25 +1,14 @@
 const slots = [
-    [
-        document.getElementById('slot1'),
-        document.getElementById('slot2'),
-        document.getElementById('slot3')
-    ],
-    [
-        document.getElementById('slot4'),
-        document.getElementById('slot5'),
-        document.getElementById('slot6')
-    ],
-    [
-        document.getElementById('slot7'),
-        document.getElementById('slot8'),
-        document.getElementById('slot9')
-    ]
+    [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')],
+    [document.getElementById('slot4'), document.getElementById('slot5'), document.getElementById('slot6')],
+    [document.getElementById('slot7'), document.getElementById('slot8'), document.getElementById('slot9')]
 ];
 
 const result = document.getElementById('result');
 const spinButton = document.getElementById('spinButton');
 const doneButton = document.getElementById('doneButton');
 const balanceElement = document.getElementById('balance');
+const lastWinElement = document.getElementById('lastWin');
 
 const symbols = [
     '../pictures/brage_bilde.jpg',
@@ -31,11 +20,18 @@ const symbols = [
     '../pictures/joey_bilde.PNG',
     '../pictures/jonas_emil_buss.png',
     '../pictures/jonas_skki.PNG',
+    '../pictures/lars_bilde.PNG',
+    '../pictures/sedric_båt_kveld.jpg',
+    '../pictures/sedric_bilde.jpg',
+    '../pictures/sindre_bilde.jpg',
+    '../pictures/svavar_bilde.jpg',
+    '../pictures/teselskap_julebord_bilde.jpg'
 ];
 
 const spinCost = 25;
 const winRewards = { 3: 300, 4: 600, 5: 1500 };
 let balance = 0;
+let lastWin = 0;
 
 // Initial message
 result.textContent = 'Good Luck';
@@ -43,10 +39,9 @@ result.textContent = 'Good Luck';
 // Set initial images for slots
 const slotImages = document.querySelectorAll('.slots .slot img');
 slotImages.forEach(img => {
-    img.src = symbols[Math.floor(Math.random() * symbols.length)]; // Set a random initial image for each slot
+    img.src = symbols[Math.floor(Math.random() * symbols.length)];
 });
 
-// Event listener for spin button
 spinButton.addEventListener('click', async () => {
     balance -= spinCost;
     updateBalance();
@@ -54,33 +49,30 @@ spinButton.addEventListener('click', async () => {
     const results = [];
     const rollPromises = [];
 
-    // Roll each row sequentially
+    // Roll each slot
     for (let i = 0; i < slots.length; i++) {
         const row = slots[i];
-        const rowResults = [];
-
-        // Roll each slot in the row
         for (let j = 0; j < row.length; j++) {
             const slot = row[j];
             const img = slot.querySelector('img');
             rollPromises.push(rollSlot(img));
             const randomSymbol = getRandomSymbol();
             results.push(randomSymbol);
-            rowResults.push(randomSymbol);
         }
-
-        // Wait for the entire row to finish rolling before proceeding
-        await Promise.all(rollPromises.slice(-row.length));
     }
+
+    await Promise.all(rollPromises);
 
     setTimeout(() => {
         const winCount = checkWin(results);
         if (winCount >= 3) {
-            balance += winRewards[winCount];
-            result.textContent = `You Win! ${winRewards[winCount]}`;
+            lastWin = winRewards[winCount];
+            balance += lastWin;
+            result.textContent = `You Win! ${lastWin}`;
             result.style.color = 'green';
             result.style.border = '2px solid green'; // Add green border for win
         } else {
+            lastWin = 0;
             result.textContent = 'Try Again!';
             result.style.color = 'red';
             result.style.border = 'none'; // Remove border if no win
@@ -89,7 +81,6 @@ spinButton.addEventListener('click', async () => {
     }, 1100); // Adjust the delay to match the animation duration
 });
 
-// Event listener for done button
 doneButton.addEventListener('click', () => {
     const finished_balance = Math.ceil(balance / 1000);
 
@@ -156,8 +147,7 @@ function checkWin(results) {
                     maxCount = count;
                 }
             } else {
-                // Reset count if symbols don't match
-                count = 1;
+                count = 1; // Reset count if symbols don't match
             }
         }
     });
@@ -167,4 +157,5 @@ function checkWin(results) {
 
 function updateBalance() {
     balanceElement.textContent = `Balance: ${balance}`;
+    lastWinElement.textContent = `Last Win: ${lastWin}`;
 }
