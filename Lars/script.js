@@ -32,7 +32,7 @@ let balance = 0;
 let lastWin = 0;
 
 // Initial message
-result.textContent = 'Good Luck!';
+result.textContent = 'Lykke til!';
 
 // Event listener for spin button click
 spinButton.addEventListener('click', async () => {
@@ -180,10 +180,10 @@ function checkWin(results) {
 
 // Function to update balance on the UI
 function updateBalance() {
-    balanceElement.textContent = `Balance: ${balance}`;
+    balanceElement.textContent = `Hvor mange øl? ${balance}`;
 }
 
 // Function to update last win on the UI
 function updateLastWin() {
-    lastWinElement.textContent = `Last Win: ${lastWin}`;
+    lastWinElement.textContent = `Sist gang vant jeg: ${lastWin}`;
 }

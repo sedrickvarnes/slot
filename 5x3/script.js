@@ -37,17 +37,17 @@ const winRewards = { 3: 900, 4: 1500, 5: 3000 };
 let balance = 0;
 let lastWin = 0;
 
-// Initial message
-result.textContent = 'Good Luck!';
+result.textContent = 'Lykke til!';
 
-// Event listener for spin button click
 spinButton.addEventListener('click', async () => {
-    // Deduct spin cost from balance
     balance -= spinCost;
     updateBalance();
 
     const results = [];
     const rollPromises = [];
+
+    document.getElementById("result").innerHTML = "8===D"
+    result.style.color = 'Blue';
 
     // Roll each slot in sequence
     for (let i = 0; i < slots.length; i++) {
@@ -64,26 +64,22 @@ spinButton.addEventListener('click', async () => {
             rowResults.push(randomSymbol);
         }
 
-        // Wait for the entire row to finish rolling before proceeding to the next row
         await Promise.all(rollPromises.slice(-row.length));
     }
 
-    // Calculate win
     const { maxCount, winMultiplier } = checkWin(results);
 
-    // Determine if there's a win
     if (maxCount >= 3) {
         const winAmount = winRewards[maxCount] * winMultiplier;
         balance += winAmount;
         lastWin = winAmount;
-        result.textContent = `You Win!`;
+        result.textContent = `Du vant!`;
         result.style.color = 'green';
     } else {
-        result.textContent = 'Try Again!';
+        result.textContent = 'Prøv igjen!';
         result.style.color = 'red';
     }
 
-    // Update UI elements
     updateBalance();
     updateLastWin();
 });
@@ -110,7 +106,7 @@ function getRandomSymbol() {
 
 
 doneButton.addEventListener('click', () => {
-    // Add your logic here
+    
     const finished_balance = Math.ceil(balance / 1000);
 
     const max = Math.floor(finished_balance);
@@ -186,10 +182,10 @@ function checkWin(results) {
 
 // Function to update balance on the UI
 function updateBalance() {
-    balanceElement.textContent = `Balance: ${balance}`;
+    balanceElement.textContent = `så mye har jeg: ${balance}`;
 }
 
 // Function to update last win on the UI
 function updateLastWin() {
-    lastWinElement.textContent = `Last Win: ${lastWin}`;
+    lastWinElement.textContent = `har vunnet så mye sist gang: ${lastWin}`;
 }
